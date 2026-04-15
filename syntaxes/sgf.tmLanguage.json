@@ -4,16 +4,13 @@
 	"patterns": [
 		{ "include": "#game-tree" },
 		{ "include": "#node-separator" },
-		{ "include": "#comment-property" },
-		{ "include": "#move-properties" },
-		{ "include": "#setup-properties" },
-		{ "include": "#game-info-properties" },
-		{ "include": "#markup-properties" },
-		{ "include": "#move-annotation-properties" },
-		{ "include": "#position-annotation-properties" },
-		{ "include": "#node-annotation-property" },
-		{ "include": "#generic-property" },
-		{ "include": "#generic-value" }
+		{ "include": "#property-black" },
+		{ "include": "#property-white" },
+		{ "include": "#property-comment" },
+		{ "include": "#property-game-info" },
+		{ "include": "#property-markup" },
+		{ "include": "#property-annotation" },
+		{ "include": "#property-generic" }
 	],
 	"repository": {
 		"game-tree": {
@@ -32,82 +29,108 @@
 			"name": "punctuation.separator.node.sgf",
 			"match": ";"
 		},
-		"comment-property": {
-			"contentName": "comment.block.sgf",
-			"begin": "(C)(\\[)",
-			"beginCaptures": {
-				"1": { "name": "entity.name.tag.annotation.sgf" },
-				"2": { "name": "punctuation.definition.property-value.begin.sgf" }
-			},
-			"end": "\\](?!\\[)",
-			"endCaptures": {
-				"0": { "name": "punctuation.definition.property-value.end.sgf" }
-			},
+		"property-black": {
+			"begin": "\\b(B|AB|TB|PB|BR)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "entity.name.type.class.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
 			"patterns": [
 				{
-					"name": "constant.character.escape.sgf",
-					"match": "\\\\."
-				},
-				{
-					"match": "\\]\\[",
-					"captures": {
-						"0": { "name": "punctuation.definition.property-value.separator.sgf" }
-					}
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "entity.name.type.class.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "entity.name.type.class.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
 				}
 			]
 		},
-		"move-properties": {
-			"name": "keyword.other.move.sgf",
-			"match": "(?:B|W)(?=\\[)"
-		},
-		"setup-properties": {
-			"name": "keyword.other.setup.sgf",
-			"match": "(?:AB|AW|AE)(?=\\[)"
-		},
-		"game-info-properties": {
-			"name": "constant.other.game-info.sgf",
-			"match": "(?:AN|AP|BR|BT|CA|CP|DT|EV|FF|GC|GM|GN|HA|KM|ON|OT|PB|PC|PW|RE|RO|RU|SI|SO|ST|SZ|TM|US|WT|WR)(?=\\[)"
-		},
-		"markup-properties": {
-			"name": "variable.annotation.markup.sgf",
-			"match": "(?:AR|CR|DD|LB|LN|MA|SQ|TB|TR|TW)(?=\\[)"
-		},
-		"move-annotation-properties": {
-			"name": "keyword.other.move-annotation.sgf",
-			"match": "(?:BM|DO|IT|TE)(?=\\[)"
-		},
-		"position-annotation-properties": {
-			"name": "keyword.other.position-annotation.sgf",
-			"match": "(?:DM|GB|GW|UC)(?=\\[)"
-		},
-		"node-annotation-property": {
-			"name": "entity.name.tag.annotation.sgf",
-			"match": "N(?=\\[)"
-		},
-		"generic-property": {
-			"name": "variable.other.property.sgf",
-			"match": "[A-Z]{1,2}(?=\\[)"
-		},
-		"generic-value": {
-			"contentName": "string.other.property-value.sgf",
-			"begin": "\\[",
-			"beginCaptures": {
-				"0": { "name": "punctuation.definition.property-value.begin.sgf" }
-			},
-			"end": "\\](?!\\[)",
-			"endCaptures": {
-				"0": { "name": "punctuation.definition.property-value.end.sgf" }
-			},
+		"property-white": {
+			"begin": "\\b(W|AW|TW|PW|WR)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "keyword.control.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
 			"patterns": [
 				{
-					"name": "constant.character.escape.sgf",
-					"match": "\\\\."
-				},
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "keyword.control.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "keyword.control.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
+				}
+			]
+		},
+		"property-comment": {
+			"begin": "\\b(C)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "entity.name.tag.annotation.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
+			"patterns": [
 				{
-					"match": "\\]\\[",
-					"captures": {
-						"0": { "name": "punctuation.definition.property-value.separator.sgf" }
-					}
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "entity.name.tag.annotation.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "entity.name.tag.annotation.sgf" } },
+					"contentName": "comment.block.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
+				}
+			]
+		},
+		"property-game-info": {
+			"begin": "\\b(AN|AP|BT|CA|CP|DT|EV|FF|GC|GM|GN|HA|KM|ON|OT|PC|RE|RO|RU|SI|SO|ST|SZ|TM|US|WT)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "constant.other.game-info.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
+			"patterns": [
+				{
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "constant.other.game-info.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "constant.other.game-info.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
+				}
+			]
+		},
+		"property-markup": {
+			"begin": "\\b(AR|CR|DD|LB|LN|MA|SQ|TR)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "variable.annotation.markup.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
+			"patterns": [
+				{
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "variable.annotation.markup.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "variable.annotation.markup.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
+				}
+			]
+		},
+		"property-annotation": {
+			"begin": "\\b(BM|DO|IT|TE|DM|GB|GW|UC|N|AE)\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "support.function.annotation.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
+			"patterns": [
+				{
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "support.function.annotation.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "support.function.annotation.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
+				}
+			]
+		},
+		"property-generic": {
+			"begin": "\\b([A-Z]{1,2})\\b(?=\\[)",
+			"beginCaptures": { "1": { "name": "variable.other.property.sgf" } },
+			"end": "(?=[A-Z]{1,2}(?=\\[)|;|\\(|\\))",
+			"patterns": [
+				{
+					"begin": "\\[",
+					"beginCaptures": { "0": { "name": "variable.other.property.sgf" } },
+					"end": "\\]",
+					"endCaptures": { "0": { "name": "variable.other.property.sgf" } },
+					"contentName": "string.other.property-value.sgf",
+					"patterns": [ { "match": "\\\\.", "name": "constant.character.escape.sgf" } ]
 				}
 			]
 		}
