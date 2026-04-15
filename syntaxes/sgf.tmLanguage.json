@@ -1,0 +1,116 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Smart Game Format",
+	"patterns": [
+		{ "include": "#game-tree" },
+		{ "include": "#node-separator" },
+		{ "include": "#comment-property" },
+		{ "include": "#move-properties" },
+		{ "include": "#setup-properties" },
+		{ "include": "#game-info-properties" },
+		{ "include": "#markup-properties" },
+		{ "include": "#move-annotation-properties" },
+		{ "include": "#position-annotation-properties" },
+		{ "include": "#node-annotation-property" },
+		{ "include": "#generic-property" },
+		{ "include": "#generic-value" }
+	],
+	"repository": {
+		"game-tree": {
+			"patterns": [
+				{
+					"name": "punctuation.definition.game-tree.begin.sgf",
+					"match": "\\("
+				},
+				{
+					"name": "punctuation.definition.game-tree.end.sgf",
+					"match": "\\)"
+				}
+			]
+		},
+		"node-separator": {
+			"name": "punctuation.separator.node.sgf",
+			"match": ";"
+		},
+		"comment-property": {
+			"contentName": "comment.block.sgf",
+			"begin": "(C)(\\[)",
+			"beginCaptures": {
+				"1": { "name": "entity.name.tag.annotation.sgf" },
+				"2": { "name": "punctuation.definition.property-value.begin.sgf" }
+			},
+			"end": "\\](?!\\[)",
+			"endCaptures": {
+				"0": { "name": "punctuation.definition.property-value.end.sgf" }
+			},
+			"patterns": [
+				{
+					"name": "constant.character.escape.sgf",
+					"match": "\\\\."
+				},
+				{
+					"match": "\\]\\[",
+					"captures": {
+						"0": { "name": "punctuation.definition.property-value.separator.sgf" }
+					}
+				}
+			]
+		},
+		"move-properties": {
+			"name": "keyword.other.move.sgf",
+			"match": "(?:B|W)(?=\\[)"
+		},
+		"setup-properties": {
+			"name": "keyword.other.setup.sgf",
+			"match": "(?:AB|AW|AE)(?=\\[)"
+		},
+		"game-info-properties": {
+			"name": "constant.other.game-info.sgf",
+			"match": "(?:AN|AP|BR|BT|CA|CP|DT|EV|FF|GC|GM|GN|HA|KM|ON|OT|PB|PC|PW|RE|RO|RU|SI|SO|ST|SZ|TM|US|WT|WR)(?=\\[)"
+		},
+		"markup-properties": {
+			"name": "variable.annotation.markup.sgf",
+			"match": "(?:AR|CR|DD|LB|LN|MA|SQ|TB|TR|TW)(?=\\[)"
+		},
+		"move-annotation-properties": {
+			"name": "keyword.other.move-annotation.sgf",
+			"match": "(?:BM|DO|IT|TE)(?=\\[)"
+		},
+		"position-annotation-properties": {
+			"name": "keyword.other.position-annotation.sgf",
+			"match": "(?:DM|GB|GW|UC)(?=\\[)"
+		},
+		"node-annotation-property": {
+			"name": "entity.name.tag.annotation.sgf",
+			"match": "N(?=\\[)"
+		},
+		"generic-property": {
+			"name": "variable.other.property.sgf",
+			"match": "[A-Z]{1,2}(?=\\[)"
+		},
+		"generic-value": {
+			"contentName": "string.other.property-value.sgf",
+			"begin": "\\[",
+			"beginCaptures": {
+				"0": { "name": "punctuation.definition.property-value.begin.sgf" }
+			},
+			"end": "\\](?!\\[)",
+			"endCaptures": {
+				"0": { "name": "punctuation.definition.property-value.end.sgf" }
+			},
+			"patterns": [
+				{
+					"name": "constant.character.escape.sgf",
+					"match": "\\\\."
+				},
+				{
+					"match": "\\]\\[",
+					"captures": {
+						"0": { "name": "punctuation.definition.property-value.separator.sgf" }
+					}
+				}
+			]
+		}
+	},
+	"scopeName": "source.sgf"
+}

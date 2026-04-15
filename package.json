@@ -1,0 +1,25 @@
+{
+  "name": "sgf-highlighter",
+  "displayName": "SGF Highlighter",
+  "description": "Syntax highlighting for Smart Game Format (SGF)",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.115.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "sgf",
+      "aliases": ["Smart Game Format", "sgf"],
+      "extensions": [".sgf"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "sgf",
+      "scopeName": "source.sgf",
+      "path": "./syntaxes/sgf.tmLanguage.json"
+    }]
+  }
+}
