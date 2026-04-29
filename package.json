@@ -9,6 +9,10 @@
   "categories": [
     "Programming Languages"
   ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:sgf"
+  ],
   "contributes": {
     "languages": [{
       "id": "sgf",
@@ -21,5 +25,14 @@
       "scopeName": "source.sgf",
       "path": "./syntaxes/sgf.tmLanguage.json"
     }]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.115.0",
+    "typescript": "^5.8.0"
   }
 }
