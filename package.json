@@ -2,9 +2,14 @@
   "name": "sgf-highlighter",
   "displayName": "SGF Highlighter",
   "description": "Syntax highlighting for Smart Game Format (SGF)",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "publisher": "hemme",
   "engines": {
     "vscode": "^1.115.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hemme/vscode_sgf.git"
   },
   "categories": [
     "Programming Languages"
