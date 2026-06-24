@@ -12,7 +12,13 @@
     "url": "https://github.com/hemme/vscode_sgf.git"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Formatters"
+  ],
+  "keywords": [
+    "sgf",
+    "smart game format",
+    "formatter"
   ],
   "main": "./out/extension.js",
   "activationEvents": [
