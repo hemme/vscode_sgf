@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext): void {
 	const disposable = vscode.languages.registerDocumentFormattingEditProvider(
-		{ scheme: "file", language: "sgf" },
+		{ language: "sgf" },
 		new SgfDocumentFormattingEditProvider()
 	);
 	context.subscriptions.push(disposable);
